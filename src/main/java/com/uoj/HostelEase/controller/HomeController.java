@@ -13,13 +13,8 @@ public class HomeController {
         this.jwtService = jwtService;
     }
 
-    @GetMapping("/get")
-    public String method(){
-        return jwtService.jwtToken();
-    }
-
     @GetMapping("/username")
-    public String getUserName(@RequestParam String token){
+    public String getUserName(@RequestParam  String token){
         return jwtService.getUserName(token);
     }
 }
