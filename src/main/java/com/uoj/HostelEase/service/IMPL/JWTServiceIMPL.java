@@ -24,10 +24,10 @@ public class JWTServiceIMPL implements JWTService  {
     }
 
     @Override
-    public String jwtToken(String userName, Map<String,String> clams) {
+    public String jwtToken(String reg_no, Map<String,String> clams) {
         return Jwts.builder()
                 .claims(clams)
-                .subject(userName)
+                .subject(reg_no)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+1000*60*15))
                 .signWith(secretKey)
@@ -35,7 +35,7 @@ public class JWTServiceIMPL implements JWTService  {
     }
 
     @Override
-    public String getUserName(String token) {
+    public String getRegNo(String token) {
         try {
             return Jwts.parser()
                     .verifyWith(secretKey)
@@ -43,6 +43,7 @@ public class JWTServiceIMPL implements JWTService  {
                     .parseSignedClaims(token)
                     .getPayload()
                     .getSubject();
+
         }catch (Exception e){
             System.err.println("Token parsing failed: " + e.getMessage());
             return null;

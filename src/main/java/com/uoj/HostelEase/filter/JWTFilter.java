@@ -1,5 +1,7 @@
 package com.uoj.HostelEase.filter;
 
+import com.uoj.HostelEase.entity.UserEntity;
+import com.uoj.HostelEase.repo.UserRepository;
 import com.uoj.HostelEase.service.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -40,12 +42,12 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
         String jwt_token=authorization.split(" ")[1];
-        String username = jwtService.getUserName(jwt_token);
-        if(username==null){
+        String reg_no = jwtService.getRegNo(jwt_token);
+        if(reg_no==null){
             filterChain.doFilter(request,response);
             return;
         }
-        UserEntity userData = userRepository.findByName(username).orElse(null);
+        UserEntity userData = userRepository.findByRegNo(reg_no).orElse(null);
         if(userData==null){
             filterChain.doFilter(request,response);
 
@@ -56,7 +58,7 @@ public class JWTFilter extends OncePerRequestFilter {
         }
 
         UserDetails userDetails= User.builder()
-                .username(userData.getName())
+                .username(userData.getRegNo())
                 .password(userData.getPassword())
                 .build();
 
