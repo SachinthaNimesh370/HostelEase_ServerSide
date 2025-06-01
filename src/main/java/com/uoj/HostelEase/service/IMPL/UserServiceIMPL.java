@@ -3,6 +3,7 @@ package com.uoj.HostelEase.service.IMPL;
 import com.uoj.HostelEase.dto.UserLoginRequestDTO;
 import com.uoj.HostelEase.dto.UserRegRequestDTO;
 import com.uoj.HostelEase.entity.UserEntity;
+import com.uoj.HostelEase.repo.UserRepository;
 import com.uoj.HostelEase.service.UserService;
 import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
@@ -32,7 +33,7 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public ServiceResponse signUp(UserRegRequestDTO userRegRequestDTO) {
-        if(isEnablePerson(userRegRequestDTO.getName())){
+        if(isEnablePerson(userRegRequestDTO.getRegNo())){
             return new ServiceResponse(false, "User already registered !");
         }
 
@@ -50,31 +51,31 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public ServiceResponse signIn(UserLoginRequestDTO userLoginRequestDTO) {
-        if(isEnablePerson(userLoginRequestDTO.getUserName())){
+        if(isEnablePerson(userLoginRequestDTO.getRegNo())){
             try {
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
-                                userLoginRequestDTO.getUserName(),userLoginRequestDTO.getPassword()));
+                                userLoginRequestDTO.getRegNo(),userLoginRequestDTO.getPassword()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return new ServiceResponse(false,"Login failed. Please check your password.");
             }
             // After checking Valid user issue the key
-            Map<String,String> map =clams(userLoginRequestDTO.getUserName());
-            return new ServiceResponse(true,jwtService.jwtToken(userLoginRequestDTO.getUserName(),map));
+            Map<String,String> map =clams(userLoginRequestDTO.getRegNo());
+            return new ServiceResponse(true,jwtService.jwtToken(userLoginRequestDTO.getRegNo(),map));
         }
         else{
             return new ServiceResponse(false,"Login failed. No registered user found with the provided information.");
         }
     }
-    private Map<String,String> clams(String userName){
+    private Map<String,String> clams(String regNo){
         Map<String,String> map =new HashMap<>();
-        map.put("role",userRepository.findRoleByName(userName));
+        map.put("role",userRepository.findRoleByRegNo(regNo));
         return map;
     }
 
     @Override
-    public boolean isEnablePerson(String userName) {
-        return userRepository.existsByName(userName);
+    public boolean isEnablePerson(String regNo) {
+        return userRepository.existsByRegNo(regNo);
     }
 }

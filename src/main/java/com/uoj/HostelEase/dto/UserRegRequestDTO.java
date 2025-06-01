@@ -1,16 +1,21 @@
 package com.uoj.HostelEase.dto;
 
-import lombok.Data;
 
-@Data
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class UserRegRequestDTO {
-    int id;
-    String reg_no;
-    String f_name;
-    String l_name;
-    String email;
-    String contact_no;
-    String role;
-    String gender;
-    String password;
+    private int id;
+    private String regNo;
+    private String f_Name;
+    private String l_Name;
+    private String email;
+    private String contactNo;
+    private String role;
+    private String gender;
+    private String password;
 }

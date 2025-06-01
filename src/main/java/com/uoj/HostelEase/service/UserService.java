@@ -8,7 +8,7 @@ public interface UserService {
     ServiceResponse signUp(UserRegRequestDTO userRegRequestDTO);
     ServiceResponse signIn(UserLoginRequestDTO userLoginRequestDTO);
 
-    boolean isEnablePerson(String userName);
+    boolean isEnablePerson(String regNo);
 
 
 }

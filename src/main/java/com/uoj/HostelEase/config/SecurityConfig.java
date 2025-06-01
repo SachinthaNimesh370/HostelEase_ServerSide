@@ -1,5 +1,7 @@
 package com.uoj.HostelEase.config;
 
+import com.uoj.HostelEase.filter.JWTFilter;
+import com.uoj.HostelEase.service.IMPL.MyUserDetailServiceIMPL;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
