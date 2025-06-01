@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 
 public class UserRegRequestDTO {
-    private int id;
     private String regNo;
     private String f_Name;
     private String l_Name;
