@@ -29,31 +29,33 @@ public class UserController {
         if(massage.isSuccess()){
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            200, "Ok", massage.getObject()),
+                            200, "Ok", massage.getObject(),null),
                     HttpStatus.OK);
         }else{
+            System.out.println(massage.getObject());
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400, "Bad", massage.getObject()),
+                            400, "Bad", massage.getObject(),null),
                     HttpStatus.BAD_REQUEST);
         }
 
     }
-    @GetMapping("/signin")
+    @PostMapping("/signin")
     public ResponseEntity<StandardResponce> signIn(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
 
         ServiceResponse massage = userService.signIn(userLoginRequestDTO);
+        System.out.println(massage.getObject());
         if(massage.isSuccess()){
             return  new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200,"Ok",new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now())),
+                            massage.getObject(), LocalDateTime.now()),massage.getRole()),
                     HttpStatus.OK);
         }else {
             return  new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null)),
+                            massage.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
 

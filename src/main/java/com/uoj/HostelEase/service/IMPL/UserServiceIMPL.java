@@ -34,17 +34,17 @@ public class UserServiceIMPL implements UserService {
     @Override
     public ServiceResponse signUp(UserRegRequestDTO userRegRequestDTO) {
         if(isEnablePerson(userRegRequestDTO.getRegNo())){
-            return new ServiceResponse(false, "User already registered !");
+            return new ServiceResponse(false, "User already registered !",null);
         }
 
         try {
             UserEntity userEntity=modelMapper.map(userRegRequestDTO,UserEntity.class);
             userEntity.setPassword(passwordEncoder.encode(userRegRequestDTO.getPassword()));
             userRepository.save(userEntity);
-            return new ServiceResponse(true, "User registered successfully");
+            return new ServiceResponse(true, "User registered successfully",null);
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return new ServiceResponse(false, "Registration Failed");
+            return new ServiceResponse(false, "Registration Failed",null);
         }
 
     }
@@ -58,14 +58,15 @@ public class UserServiceIMPL implements UserService {
                                 userLoginRequestDTO.getRegNo(),userLoginRequestDTO.getPassword()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                return new ServiceResponse(false,"Login failed. Please check your password.");
+                return new ServiceResponse(false,"Login failed. Please check your password.",null);
             }
             // After checking Valid user issue the key
             Map<String,String> map =clams(userLoginRequestDTO.getRegNo());
-            return new ServiceResponse(true,jwtService.jwtToken(userLoginRequestDTO.getRegNo(),map));
+            System.out.println(map);
+            return new ServiceResponse(true,jwtService.jwtToken(userLoginRequestDTO.getRegNo(),map),map);
         }
         else{
-            return new ServiceResponse(false,"Login failed. No registered user found with the provided information.");
+            return new ServiceResponse(false,"Login failed. No registered user found with the provided information.",null);
         }
     }
     private Map<String,String> clams(String regNo){
