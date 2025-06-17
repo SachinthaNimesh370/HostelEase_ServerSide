@@ -21,5 +21,6 @@ public class UserEntity {
     private String contactNo;
     private String role;
     private String gender;
+    private boolean state;
     private String password;
 }
