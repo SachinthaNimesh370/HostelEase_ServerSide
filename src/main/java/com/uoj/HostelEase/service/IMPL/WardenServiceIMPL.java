@@ -62,4 +62,19 @@ public class WardenServiceIMPL implements WardenService {
         }
     }
 
+    @Override
+    public ServiceResponse deleteRoom(String id) {
+        if(isEnable(id)){
+            try {
+                roomRepository.deleteById(id);
+                return new ServiceResponse(true, "Room Deleted successfully",null);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                return new ServiceResponse(false, "Delete Failed",null);
+            }
+        }else{
+            return new ServiceResponse(false, "Can't Find Room ID",null);
+        }
+    }
+
 }

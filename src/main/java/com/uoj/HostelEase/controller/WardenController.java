@@ -57,5 +57,23 @@ public class WardenController {
                     HttpStatus.BAD_REQUEST);
         }
     }
+    @DeleteMapping("/deleteroom")
+    public ResponseEntity<StandardResponce> deleteRoom(@RequestBody RoomDTO roomDTO) {
+        ServiceResponse massage= wardenService.deleteRoom(roomDTO.getRoomId());
+        if(massage.isSuccess()) {
+            return new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200, "Ok", new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                    HttpStatus.OK);
+        }else{
+            return new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
 }
