@@ -16,5 +16,6 @@ public class UserRegRequestDTO {
     private String contactNo;
     private String role;
     private String gender;
+    private boolean state;
     private String password;
 }

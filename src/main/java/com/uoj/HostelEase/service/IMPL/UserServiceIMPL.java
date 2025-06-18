@@ -40,6 +40,7 @@ public class UserServiceIMPL implements UserService {
         try {
             UserEntity userEntity=modelMapper.map(userRegRequestDTO,UserEntity.class);
             userEntity.setPassword(passwordEncoder.encode(userRegRequestDTO.getPassword()));
+            userEntity.setState(false);
             userRepository.save(userEntity);
             return new ServiceResponse(true, "User registered successfully",null);
         }catch (Exception e){
