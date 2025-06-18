@@ -6,4 +6,5 @@ import com.uoj.HostelEase.utill.ServiceResponse;
 
 public interface WardenService {
     ServiceResponse newRoom(RoomDTO roomDTO);
+
 }
