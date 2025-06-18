@@ -24,7 +24,6 @@ public class WardenServiceIMPL implements WardenService {
         if(isEnable(roomDTO.getRoomId())){
             return new ServiceResponse(false, roomDTO.getRoomId() +" : Is Already Registered",null);
         }
-
         try {
             RoomEntity roomEntity=modelMapper.map(roomDTO,RoomEntity.class);
             roomEntity.setCurrentCount(0);
@@ -37,12 +36,30 @@ public class WardenServiceIMPL implements WardenService {
 
     }
 
+    @Override
     public boolean isEnable(String id){
         if(roomRepository.existsById(id)){
             return true;
         }
         return false;
 
+    }
+
+    @Override
+    public ServiceResponse updateRoom(RoomDTO roomDTO) {
+        if(isEnable(roomDTO.getRoomId())){
+            try {
+                RoomEntity roomEntity=modelMapper.map(roomDTO,RoomEntity.class);
+                roomRepository.save(roomEntity);
+                return new ServiceResponse(true, "Room Updated successfully",null);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                return new ServiceResponse(false, "Update Failed",null);
+            }
+
+        }else {
+            return new ServiceResponse(false, "Can't Find Room ID",null);
+        }
     }
 
 }
