@@ -6,5 +6,8 @@ import com.uoj.HostelEase.utill.ServiceResponse;
 
 public interface WardenService {
     ServiceResponse newRoom(RoomDTO roomDTO);
+    boolean isEnable(String id);
+    ServiceResponse updateRoom(RoomDTO roomDTO);
+    ServiceResponse deleteRoom(String id);
 
 }
