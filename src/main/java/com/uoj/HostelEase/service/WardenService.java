@@ -9,5 +9,6 @@ public interface WardenService {
     boolean isEnable(String id);
     ServiceResponse updateRoom(RoomDTO roomDTO);
     ServiceResponse deleteRoom(String id);
+    ServiceResponse getAllRooms();
 
 }

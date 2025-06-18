@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -21,7 +22,27 @@ public class WardenController {
         this.wardenService = wardenService;
     }
 
-    //New Room Save
+    @GetMapping("getallroom")
+    public ResponseEntity<StandardResponce> getAllRooms() {
+        ServiceResponse massage =wardenService.getAllRooms();
+        if(massage.isSuccess()) {
+            return new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200, "Ok", new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                    HttpStatus.OK);
+        }else{
+            return new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
+
     @PostMapping("/newroom")
     public ResponseEntity<StandardResponce> newRoom(@RequestBody RoomDTO roomDTO) {
         ServiceResponse massage =wardenService.newRoom(roomDTO);

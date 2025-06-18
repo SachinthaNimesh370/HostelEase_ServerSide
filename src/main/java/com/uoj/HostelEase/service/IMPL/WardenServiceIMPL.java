@@ -9,6 +9,9 @@ import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class WardenServiceIMPL implements WardenService {
     private final ModelMapper modelMapper;
@@ -74,6 +77,23 @@ public class WardenServiceIMPL implements WardenService {
             }
         }else{
             return new ServiceResponse(false, "Can't Find Room ID",null);
+        }
+    }
+
+    @Override
+    public ServiceResponse getAllRooms() {
+
+        List<RoomEntity> rooms = new ArrayList<>();
+        try{
+            rooms.addAll(roomRepository.findAll());
+            if(rooms.size()>0){
+                return new ServiceResponse(true, rooms,null);
+            }else{
+                return new ServiceResponse(false, "Not Registered Rooms",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
         }
     }
 
