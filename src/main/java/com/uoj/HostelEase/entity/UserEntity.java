@@ -23,8 +23,4 @@ public class UserEntity {
     private String gender;
     private boolean state;
     private String password;
-
-    @ManyToOne
-    @JoinColumn(name = "room_id", referencedColumnName = "roomId")
-    private RoomEntity room;
 }
