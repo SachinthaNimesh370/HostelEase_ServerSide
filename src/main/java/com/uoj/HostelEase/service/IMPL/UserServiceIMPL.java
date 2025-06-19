@@ -61,10 +61,18 @@ public class UserServiceIMPL implements UserService {
                 System.out.println(e.getMessage());
                 return new ServiceResponse(false,"Login failed. Please check your password.",null);
             }
-            // After checking Valid user issue the key
-            Map<String,String> map =clams(userLoginRequestDTO.getRegNo());
-            System.out.println(map);
-            return new ServiceResponse(true,jwtService.jwtToken(userLoginRequestDTO.getRegNo(),map),map);
+
+             System.out.println(userRepository.findStateByRegNo(userLoginRequestDTO.getRegNo()));
+
+            if(userRepository.findStateByRegNo(userLoginRequestDTO.getRegNo())){
+                // After checking Valid user issue the key
+                Map<String,String> map =clams(userLoginRequestDTO.getRegNo());
+                System.out.println(map);
+                return new ServiceResponse(true,jwtService.jwtToken(userLoginRequestDTO.getRegNo(),map),map);
+            }else {
+                return new ServiceResponse(false,"Login failed. Please Waiting For Approve By Admin",null);
+            }
+
         }
         else{
             return new ServiceResponse(false,"Login failed. No registered user found with the provided information.",null);
