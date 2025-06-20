@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -20,13 +19,10 @@ public class RoomEntity {
     private boolean ac;
     private int currentCount;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<StudentEntity> students;
 
     @ManyToOne
-    @JoinColumn(name = "wardenId", referencedColumnName = "wardenID")
+    @JoinColumn(name = "warden_id", referencedColumnName = "wardenID")
     private WardenEntity warden;
-
-
-
 }

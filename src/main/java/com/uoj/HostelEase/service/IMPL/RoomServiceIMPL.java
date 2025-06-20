@@ -2,9 +2,8 @@ package com.uoj.HostelEase.service.IMPL;
 
 import com.uoj.HostelEase.dto.RoomDTO;
 import com.uoj.HostelEase.entity.RoomEntity;
-import com.uoj.HostelEase.entity.UserEntity;
 import com.uoj.HostelEase.repo.RoomRepository;
-import com.uoj.HostelEase.service.WardenService;
+import com.uoj.HostelEase.service.RoomService;
 import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -13,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class WardenServiceIMPL implements WardenService {
+public class RoomServiceIMPL implements RoomService {
     private final ModelMapper modelMapper;
     private final RoomRepository roomRepository;
 
-    public WardenServiceIMPL(ModelMapper modelMapper, RoomRepository roomRepository) {
+    public RoomServiceIMPL(ModelMapper modelMapper, RoomRepository roomRepository) {
         this.modelMapper = modelMapper;
         this.roomRepository = roomRepository;
     }
