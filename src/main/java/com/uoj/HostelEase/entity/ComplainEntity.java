@@ -14,7 +14,7 @@ import lombok.Setter;
 public class ComplainEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int complainId;
+    private int complain_id;
     private String catagory;
     private String content;
     private String date;
@@ -22,10 +22,10 @@ public class ComplainEntity {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private StudentEntity student;
 
     @ManyToOne
-    @JoinColumn(name = "wardenId", referencedColumnName = "wardenID")
+    @JoinColumn(name = "warden_id", referencedColumnName = "warden_id")
     private WardenEntity warden;
 }

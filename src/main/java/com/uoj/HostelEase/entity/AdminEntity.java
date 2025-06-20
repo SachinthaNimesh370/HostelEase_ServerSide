@@ -15,9 +15,9 @@ import java.util.List;
 @Setter
 public class AdminEntity {
     @Id
-    private String adminID;
+    private String admin_id;
     @OneToOne
-    @JoinColumn(name = "adminID", referencedColumnName = "regNo")
+    @JoinColumn(name = "admin_id", referencedColumnName = "regNo")
     private UserEntity user;
 
     @OneToMany(mappedBy = "admin")

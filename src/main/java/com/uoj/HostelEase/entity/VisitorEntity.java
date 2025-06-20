@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class VisitorEntity {
     @Id
-    private int id;
+    private int visitor_id;
     private String nic;
     private String name;
     private String date;
@@ -24,10 +24,10 @@ public class VisitorEntity {
     private String exitTime;
 
     @ManyToOne
-    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private StudentEntity student;
 
     @ManyToOne
-    @JoinColumn(name = "wardenId", referencedColumnName = "wardenID")
+    @JoinColumn(name = "warden_id", referencedColumnName = "warden_id")
     private WardenEntity warden;
 }

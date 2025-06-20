@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/warden")
+@RequestMapping("/room")
 public class RoomController {
     private final RoomService wardenService;
 
@@ -79,7 +79,7 @@ public class RoomController {
     }
     @DeleteMapping("/deleteroom")
     public ResponseEntity<StandardResponce> deleteRoom(@RequestBody RoomDTO roomDTO) {
-        ServiceResponse massage= wardenService.deleteRoom(roomDTO.getRoomId());
+        ServiceResponse massage= wardenService.deleteRoom(roomDTO.getRoom_id());
         if(massage.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(

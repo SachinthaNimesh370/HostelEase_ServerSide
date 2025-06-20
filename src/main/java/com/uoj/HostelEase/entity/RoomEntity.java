@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class RoomEntity {
     @Id
-    private String roomId;
+    private String room_id;
     private String roomNo;
     private String type;
     private boolean ac;
@@ -23,6 +23,6 @@ public class RoomEntity {
     private List<StudentEntity> students;
 
     @ManyToOne
-    @JoinColumn(name = "warden_id", referencedColumnName = "wardenID")
+    @JoinColumn(name = "warden_id", referencedColumnName = "warden_id")
     private WardenEntity warden;
 }
