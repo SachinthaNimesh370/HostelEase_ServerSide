@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +46,6 @@ public class UserServiceIMPL implements UserService {
             System.out.println(e.getMessage());
             return new ServiceResponse(false, "Registration Failed",null);
         }
-
     }
 
     @Override
@@ -62,8 +60,6 @@ public class UserServiceIMPL implements UserService {
                 return new ServiceResponse(false,"Login failed. Please check your password.",null);
             }
 
-             System.out.println(userRepository.findStateByRegNo(userLoginRequestDTO.getRegNo()));
-
             if(userRepository.findStateByRegNo(userLoginRequestDTO.getRegNo())){
                 // After checking Valid user issue the key
                 Map<String,String> map =clams(userLoginRequestDTO.getRegNo());
@@ -72,7 +68,6 @@ public class UserServiceIMPL implements UserService {
             }else {
                 return new ServiceResponse(false,"Login failed. Please Waiting For Approve By Admin",null);
             }
-
         }
         else{
             return new ServiceResponse(false,"Login failed. No registered user found with the provided information.",null);

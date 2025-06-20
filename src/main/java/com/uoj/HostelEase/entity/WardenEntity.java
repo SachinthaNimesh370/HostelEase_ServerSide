@@ -22,4 +22,7 @@ public class WardenEntity {
 
     @OneToMany(mappedBy = "warden")
     private List<StudentEntity> students;
+
+    @OneToMany(mappedBy = "warden")
+    private List<RoomEntity> rooms;
 }
