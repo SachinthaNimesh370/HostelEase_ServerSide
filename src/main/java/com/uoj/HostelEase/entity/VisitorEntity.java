@@ -1,9 +1,6 @@
 package com.uoj.HostelEase.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +13,14 @@ import lombok.Setter;
 @Setter
 public class VisitorEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int visitor_id;
     private String nic;
     private String name;
     private String date;
     private String entryTime;
     private String exitTime;
+    private String state;
 
     @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
