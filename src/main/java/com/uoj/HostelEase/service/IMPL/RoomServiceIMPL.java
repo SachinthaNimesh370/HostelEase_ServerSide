@@ -23,8 +23,8 @@ public class RoomServiceIMPL implements RoomService {
 
     @Override
     public ServiceResponse newRoom(RoomDTO roomDTO) {
-        if(isEnable(roomDTO.getRoomId())){
-            return new ServiceResponse(false, roomDTO.getRoomId() +" : Is Already Registered",null);
+        if(isEnable(roomDTO.getRoom_id())){
+            return new ServiceResponse(false, roomDTO.getRoom_id() +" : Is Already Registered",null);
         }
         try {
             RoomEntity roomEntity=modelMapper.map(roomDTO,RoomEntity.class);
@@ -49,7 +49,7 @@ public class RoomServiceIMPL implements RoomService {
 
     @Override
     public ServiceResponse updateRoom(RoomDTO roomDTO) {
-        if(isEnable(roomDTO.getRoomId())){
+        if(isEnable(roomDTO.getRoom_id())){
             try {
                 RoomEntity roomEntity=modelMapper.map(roomDTO,RoomEntity.class);
                 roomRepository.save(roomEntity);

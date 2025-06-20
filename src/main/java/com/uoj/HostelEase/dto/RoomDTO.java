@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 public class RoomDTO {
-    private String roomId;
+    private String room_id;
     private String roomNo;
     private String type;
     private boolean ac;

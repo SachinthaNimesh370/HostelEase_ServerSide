@@ -15,18 +15,19 @@ import java.util.List;
 @Setter
 public class PaymentEntity {
     @Id
-    private int PaymentId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int payment_id;
     private double amount;
     private String description;
     private String date;
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private StudentEntity student;
 
     @ManyToOne
-    @JoinColumn(name = "wardenId", referencedColumnName = "wardenID")
+    @JoinColumn(name = "warden_id", referencedColumnName = "warden_id")
     private WardenEntity warden;
 
 

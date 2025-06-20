@@ -17,10 +17,10 @@ import java.util.List;
 public class StudentEntity {
 
     @Id
-    private String studentId;
+    private String student_id;
 
     @OneToOne
-    @JoinColumn(name = "studentId", referencedColumnName = "regNo")
+    @JoinColumn(name = "student_id", referencedColumnName = "regNo")
     private UserEntity user;
 
     @ManyToOne
