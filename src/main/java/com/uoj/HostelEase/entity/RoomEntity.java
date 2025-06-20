@@ -1,8 +1,6 @@
 package com.uoj.HostelEase.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +22,11 @@ public class RoomEntity {
 
     @OneToMany(mappedBy = "room")
     private List<StudentEntity> students;
+
+    @ManyToOne
+    @JoinColumn(name = "wardenId", referencedColumnName = "wardenID")
+    private WardenEntity warden;
+
 
 
 }
