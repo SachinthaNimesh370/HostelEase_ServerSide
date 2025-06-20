@@ -11,6 +11,11 @@ public interface UserRepository extends JpaRepository<UserEntity,String> {
     Optional<UserEntity> findByRegNo(String regNo);
     boolean existsByRegNo(String regNo);
 
+
+    // Custom query method to find state by regNo
+    @Query("SELECT u.state FROM UserEntity u WHERE u.regNo = :regNo")
+    Boolean findStateByRegNo(String regNo);
+
     @Query("SELECT u.role FROM UserEntity u WHERE u.regNo = :regNo")
     String findRoleByRegNo(String regNo);
 

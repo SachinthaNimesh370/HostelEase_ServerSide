@@ -23,5 +23,7 @@ public class RoomEntity {
     private int currentCount;
 
     @OneToMany(mappedBy = "room")
-    private List<UserEntity> users;
+    private List<StudentEntity> students;
+
+
 }
