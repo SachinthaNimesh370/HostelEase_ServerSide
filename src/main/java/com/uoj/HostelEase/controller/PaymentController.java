@@ -40,10 +40,26 @@ public class PaymentController {
     }
     @PostMapping("/updatepayment")
     public ResponseEntity<StandardResponce> updatePayment(@RequestBody PaymentDTO paymentDTO) {
-        System.out.println(paymentDTO.getPayment_id());
-        System.out.println(paymentDTO.getAmount());
         ServiceResponse massage =paymentService.updatePayment(paymentDTO);
+        if(massage.isSuccess()) {
+            return new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200, "Ok", new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                    HttpStatus.OK);
+        }else{
+            return new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
 
+    @DeleteMapping("/deletepayment")
+    public ResponseEntity<StandardResponce> deletePayment(@RequestBody PaymentDTO paymentDTO) {
+        System.out.println(paymentDTO.getPayment_id());
+        ServiceResponse massage = paymentService.deletePayment(paymentDTO.getPayment_id());
         if(massage.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(

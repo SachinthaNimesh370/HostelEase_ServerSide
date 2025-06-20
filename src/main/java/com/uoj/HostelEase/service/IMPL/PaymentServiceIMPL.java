@@ -3,7 +3,6 @@ package com.uoj.HostelEase.service.IMPL;
 import com.uoj.HostelEase.dto.PaymentDTO;
 import com.uoj.HostelEase.entity.*;
 import com.uoj.HostelEase.repo.PaymentRepository;
-import com.uoj.HostelEase.repo.RoomRepository;
 import com.uoj.HostelEase.repo.UserRepository;
 import com.uoj.HostelEase.service.PaymentService;
 import com.uoj.HostelEase.utill.ServiceResponse;
@@ -35,8 +34,6 @@ public class PaymentServiceIMPL implements PaymentService {
 
     @Override
     public ServiceResponse updatePayment(PaymentDTO paymentDTO) {
-        System.out.println(paymentDTO.getPayment_id());
-        System.out.println(isExist(paymentDTO.getPayment_id()));
         if(isExist(paymentDTO.getPayment_id())){
             try {
                 PaymentEntity paymentEntity=modelMapper.map(paymentDTO,PaymentEntity.class);
@@ -51,10 +48,26 @@ public class PaymentServiceIMPL implements PaymentService {
         }
     }
 
-    public boolean isExist(int id){
+    private boolean isExist(int id){
         if(paymentRepository.existsById(id)){
             return true;
         }
         return false;
+    }
+
+    @Override
+    public ServiceResponse deletePayment(int paymentId) {
+        System.out.println(paymentId);
+        System.out.println(isExist(paymentId));
+        if(isExist(paymentId)){
+            try {
+                paymentRepository.deleteById(paymentId);
+                return new ServiceResponse(true,"Payment Receipt Delete.",null);
+            } catch (Exception e) {
+                return new ServiceResponse(true,"Payment Can't Delete.Please Try Again !.",null);
+            }
+        }else {
+            return new ServiceResponse(false,"Payment Not Found",null);
+        }
     }
 }
