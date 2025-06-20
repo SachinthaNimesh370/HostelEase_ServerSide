@@ -2,7 +2,7 @@ package com.uoj.HostelEase.controller;
 
 import com.uoj.HostelEase.dto.RoomDTO;
 import com.uoj.HostelEase.dto.UserLoginResponceDTO;
-import com.uoj.HostelEase.service.WardenService;
+import com.uoj.HostelEase.service.RoomService;
 import com.uoj.HostelEase.utill.ServiceResponse;
 import com.uoj.HostelEase.utill.StandardResponce;
 import org.springframework.http.HttpStatus;
@@ -10,15 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/warden")
-public class WardenController {
-    private final WardenService wardenService;
+public class RoomController {
+    private final RoomService wardenService;
 
-    public WardenController(WardenService wardenService) {
+    public RoomController(RoomService wardenService) {
         this.wardenService = wardenService;
     }
 
@@ -96,5 +95,4 @@ public class WardenController {
         }
 
     }
-
 }
