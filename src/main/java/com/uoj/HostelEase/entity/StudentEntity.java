@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -33,4 +35,13 @@ public class StudentEntity {
     @ManyToOne
     @JoinColumn(name = "roomid")
     private RoomEntity room;
+
+    @OneToMany(mappedBy = "student")
+    private List<PaymentEntity> payment;
+
+    @OneToMany(mappedBy = "student")
+    private List<ComplainEntity> complain;
+
+    @OneToMany(mappedBy = "student")
+    private List<VisitorEntity> visitor;
 }

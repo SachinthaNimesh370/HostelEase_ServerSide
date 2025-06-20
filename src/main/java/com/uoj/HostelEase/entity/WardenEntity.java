@@ -25,4 +25,13 @@ public class WardenEntity {
 
     @OneToMany(mappedBy = "warden")
     private List<RoomEntity> rooms;
+
+    @OneToMany(mappedBy = "warden")
+    private List<PaymentEntity> payment;
+
+    @OneToMany(mappedBy = "warden")
+    private List<ComplainEntity> complain;
+
+    @OneToMany(mappedBy = "warden")
+    private List<VisitorEntity> visitor;
 }
