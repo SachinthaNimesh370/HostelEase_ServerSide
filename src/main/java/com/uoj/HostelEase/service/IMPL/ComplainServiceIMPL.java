@@ -33,11 +33,30 @@ public class ComplainServiceIMPL implements ComplainService {
 
     @Override
     public ServiceResponse updateComplain(ComplainDTO complainDTO) {
-        return null;
+        if(isExist(complainDTO.getComplain_id())){
+            try {
+                ComplainEntity complainEntity = modelMapper.map(complainDTO, ComplainEntity.class);
+                complainRepository.save(complainEntity);
+                return new ServiceResponse(true,"Complain Saved",null);
+            } catch (Exception e) {
+                System.out.println(e);
+                return new ServiceResponse(false,"Complain Can't Save",null);
+            }
+        }else {
+            return new ServiceResponse(false,"Complain Not Found",null);
+        }
+
     }
 
     @Override
     public ServiceResponse deleteComplain(ComplainDTO complainDTO) {
         return null;
+    }
+
+    private boolean isExist(int id){
+        if(complainRepository.existsById(id)){
+            return true;
+        }
+        return false;
     }
 }
