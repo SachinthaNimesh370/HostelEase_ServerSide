@@ -6,5 +6,5 @@ import com.uoj.HostelEase.utill.ServiceResponse;
 public interface ComplainService {
     ServiceResponse newComplain(ComplainDTO complainDTO);
     ServiceResponse updateComplain(ComplainDTO complainDTO);
-    ServiceResponse deleteComplain(ComplainDTO complainDTO);
+    ServiceResponse deleteComplain(int complainId);
 }
