@@ -1,5 +1,6 @@
 package com.uoj.HostelEase.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,7 @@ public class StudentEntity {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
-    @JsonIgnore
+    @JsonBackReference // Back part of the reference
     private RoomEntity room;
 
     @OneToMany(mappedBy = "student")
