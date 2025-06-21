@@ -2,8 +2,14 @@ package com.uoj.HostelEase.service.IMPL;
 
 import com.uoj.HostelEase.dto.UserLoginRequestDTO;
 import com.uoj.HostelEase.dto.UserRegRequestDTO;
+import com.uoj.HostelEase.entity.AdminEntity;
+import com.uoj.HostelEase.entity.StudentEntity;
 import com.uoj.HostelEase.entity.UserEntity;
+import com.uoj.HostelEase.entity.WardenEntity;
+import com.uoj.HostelEase.repo.AdminRepository;
+import com.uoj.HostelEase.repo.StudentRepository;
 import com.uoj.HostelEase.repo.UserRepository;
+import com.uoj.HostelEase.repo.WardenRepository;
 import com.uoj.HostelEase.service.UserService;
 import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
@@ -21,13 +27,20 @@ public class UserServiceIMPL implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JWTServiceIMPL jwtService;
+    private final AdminRepository adminRepository;
+    private final StudentRepository studentRepository;
+    private final WardenRepository wardenRepository;
 
-    public UserServiceIMPL(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTServiceIMPL jwtService) {
+
+    public UserServiceIMPL(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTServiceIMPL jwtService,  AdminRepository adminRepository, StudentRepository studentRepository, WardenRepository wardenRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.adminRepository = adminRepository;
+        this.studentRepository = studentRepository;
+        this.wardenRepository = wardenRepository;
     }
 
     @Override
@@ -82,5 +95,39 @@ public class UserServiceIMPL implements UserService {
     @Override
     public boolean isEnablePerson(String regNo) {
         return userRepository.existsByRegNo(regNo);
+    }
+
+    @Override
+    public ServiceResponse userUpdate(UserRegRequestDTO userRegRequestDTO) {
+        if(isEnablePerson(userRegRequestDTO.getRegNo())){
+            try{
+                UserEntity userEntity=modelMapper.map(userRegRequestDTO,UserEntity.class);
+                userEntity.setPassword(passwordEncoder.encode(userRegRequestDTO.getPassword()));
+                userRepository.save(userEntity);
+                if(userEntity.isState()){
+                    if(userEntity.getRole().equals("Student")){
+                        student(userEntity.getRegNo());
+                    }
+                }
+                return new ServiceResponse(true, "User Updated successfully",null);
+
+            }catch(Exception e){
+                System.out.println("Reason for Update fail " +e.getMessage());
+                return new ServiceResponse(false, "User Update fail",null);
+            }
+        }
+        return null;
+    }
+
+    private void student(String regNo){
+
+        try{
+            StudentEntity student = new StudentEntity();
+            student.setStudent_id(regNo);
+            studentRepository.save(student);
+            System.out.println("student added successfully to Student Entity");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -49,8 +49,17 @@ public class ComplainServiceIMPL implements ComplainService {
     }
 
     @Override
-    public ServiceResponse deleteComplain(ComplainDTO complainDTO) {
-        return null;
+    public ServiceResponse deleteComplain(int complainId) {
+        if(isExist(complainId)){
+            try{
+                complainRepository.deleteById(complainId);
+                return new ServiceResponse(true,"Complain Deleted",null);
+            } catch (Exception e) {
+                return new ServiceResponse(false,"Complain Can't Delete.Please Try Again!",null);
+            }
+        }else {
+            return new ServiceResponse(false,"Complain Not Found",null);
+        }
     }
 
     private boolean isExist(int id){

@@ -11,4 +11,5 @@ public interface UserService {
     boolean isEnablePerson(String regNo);
 
 
+    ServiceResponse userUpdate(UserRegRequestDTO userRegRequestDTO);
 }
