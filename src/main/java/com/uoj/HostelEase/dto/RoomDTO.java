@@ -12,4 +12,5 @@ public class RoomDTO {
     private String type;
     private boolean ac;
     private int currentCount;
+    private String warden_id;
 }
