@@ -109,7 +109,12 @@ public class UserServiceIMPL implements UserService {
                         student(userEntity.getRegNo());
                     } else if (userEntity.getRole().equals("Admin")) {
                         admin(userEntity.getRegNo());
+                    } else if (userEntity.getRole().equals("Warden")) {
+                        warden(userEntity.getRegNo());
                     }
+                }
+                else {
+                    return new ServiceResponse(false, "Process Has Something Wrong.Please Try Again",null);
                 }
                 return new ServiceResponse(true, "User Updated successfully",null);
 
@@ -138,6 +143,17 @@ public class UserServiceIMPL implements UserService {
             admin.setAdmin_id(regNo);
             adminRepository.save(admin);
             System.out.println("admin added successfully to Admin Entity");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void warden(String regNo){
+        try{
+            WardenEntity warden = new WardenEntity();
+            warden.setWarden_id(regNo);
+            wardenRepository.save(warden);
+            System.out.println("Warden added successfully to Warden Entity");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
