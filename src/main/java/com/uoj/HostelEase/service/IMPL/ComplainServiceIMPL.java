@@ -2,11 +2,15 @@ package com.uoj.HostelEase.service.IMPL;
 
 import com.uoj.HostelEase.dto.ComplainDTO;
 import com.uoj.HostelEase.entity.ComplainEntity;
+import com.uoj.HostelEase.entity.RoomEntity;
 import com.uoj.HostelEase.repo.ComplainRepository;
 import com.uoj.HostelEase.service.ComplainService;
 import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ComplainServiceIMPL implements ComplainService {
@@ -60,6 +64,23 @@ public class ComplainServiceIMPL implements ComplainService {
         }else {
             return new ServiceResponse(false,"Complain Not Found",null);
         }
+    }
+
+    @Override
+    public ServiceResponse getAllComplain() {
+        List<ComplainEntity> rooms = new ArrayList<>();
+        try{
+            rooms.addAll(complainRepository.findAll());
+            if(rooms.size()>0){
+                return new ServiceResponse(true, rooms,null);
+            }else{
+                return new ServiceResponse(false, "Not Complains",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
+        }
+
     }
 
     private boolean isExist(int id){

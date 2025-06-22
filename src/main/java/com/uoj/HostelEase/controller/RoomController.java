@@ -62,6 +62,7 @@ public class RoomController {
 
     @PostMapping("/updateroom")
     public ResponseEntity<StandardResponce> updateRoom(@RequestBody RoomDTO roomDTO) {
+        System.out.println(roomDTO.getRoom_id());
         ServiceResponse massage =wardenService.updateRoom(roomDTO);
         if(massage.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
@@ -77,7 +78,7 @@ public class RoomController {
                     HttpStatus.BAD_REQUEST);
         }
     }
-    @DeleteMapping("/deleteroom")
+    @PostMapping("/deleteroom")
     public ResponseEntity<StandardResponce> deleteRoom(@RequestBody RoomDTO roomDTO) {
         ServiceResponse massage= wardenService.deleteRoom(roomDTO.getRoom_id());
         if(massage.isSuccess()) {

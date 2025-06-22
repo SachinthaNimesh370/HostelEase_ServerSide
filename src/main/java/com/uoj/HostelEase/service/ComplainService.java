@@ -7,4 +7,5 @@ public interface ComplainService {
     ServiceResponse newComplain(ComplainDTO complainDTO);
     ServiceResponse updateComplain(ComplainDTO complainDTO);
     ServiceResponse deleteComplain(int complainId);
+    ServiceResponse getAllComplain();
 }
