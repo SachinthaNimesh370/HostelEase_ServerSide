@@ -29,7 +29,7 @@ public class JWTServiceIMPL implements JWTService  {
                 .claims(clams)
                 .subject(reg_no)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+1000*60*15))
+                .expiration(new Date(System.currentTimeMillis()+1000*60*60))
                 .signWith(secretKey)
                 .compact();
     }
