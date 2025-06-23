@@ -77,5 +77,76 @@ public class UserController {
                     HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/getalluser")
+    public ResponseEntity<StandardResponce> getAllUser(){
+        ServiceResponse massage = userService.getAllUser();
+        if(massage.isSuccess()){
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200,"Ok",new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()),massage.getRole()),
+                    HttpStatus.OK);
+        }else {
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getallwarden")
+    public ResponseEntity<StandardResponce> getAllWarden(){
+        ServiceResponse massage = userService.getAllWarden();
+        if(massage.isSuccess()){
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200,"Ok",new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()),massage.getRole()),
+                    HttpStatus.OK);
+        }else {
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getalladmin")
+    public ResponseEntity<StandardResponce> getAllAdmin(){
+        ServiceResponse massage = userService.getAllAdmin();
+        if(massage.isSuccess()){
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200,"Ok",new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()),massage.getRole()),
+                    HttpStatus.OK);
+        }else {
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getallstudent")
+    public ResponseEntity<StandardResponce> getAllStudent(){
+        ServiceResponse massage = userService.getAllStudent();
+        if(massage.isSuccess()){
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200,"Ok",new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()),massage.getRole()),
+                    HttpStatus.OK);
+        }else {
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

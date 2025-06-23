@@ -12,4 +12,13 @@ public interface UserService {
 
 
     ServiceResponse userUpdate(UserRegRequestDTO userRegRequestDTO);
+
+    ServiceResponse getAllUser();
+
+    ServiceResponse getAllWarden();
+
+    ServiceResponse getAllAdmin();
+
+    ServiceResponse getAllStudent();
+
 }
