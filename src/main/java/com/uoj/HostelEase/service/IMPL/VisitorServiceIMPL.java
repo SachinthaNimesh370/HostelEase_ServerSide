@@ -1,12 +1,16 @@
 package com.uoj.HostelEase.service.IMPL;
 
 import com.uoj.HostelEase.dto.VisitorDTO;
+import com.uoj.HostelEase.entity.RoomEntity;
 import com.uoj.HostelEase.entity.VisitorEntity;
 import com.uoj.HostelEase.repo.VisitorRepository;
 import com.uoj.HostelEase.service.VisitorService;
 import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class VisitorServiceIMPL implements VisitorService {
@@ -56,6 +60,22 @@ public class VisitorServiceIMPL implements VisitorService {
             }
         }else {
             return new ServiceResponse(false,"Request Not Found",null);
+        }
+    }
+
+    @Override
+    public ServiceResponse getAllVisitor() {
+        List<VisitorEntity> visitors = new ArrayList<>();
+        try{
+            visitors.addAll(visitorRepository.findAll());
+            if(visitors.size()>0){
+                return new ServiceResponse(true, visitors,null);
+            }else{
+                return new ServiceResponse(false, "No Any Visitors",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
         }
     }
 

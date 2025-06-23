@@ -7,4 +7,7 @@ public interface VisitorService {
     ServiceResponse newVisitor(VisitorDTO visitorDTO);
     ServiceResponse updateVisitor(VisitorDTO visitorDTO);
     ServiceResponse deleteVisitor(int visitorId);
+
+    ServiceResponse getAllVisitor();
+
 }
