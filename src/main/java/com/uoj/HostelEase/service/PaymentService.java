@@ -9,5 +9,7 @@ public interface PaymentService {
     ServiceResponse updatePayment(PaymentDTO paymentDTO);
 
     ServiceResponse deletePayment(int paymentId);
+
+    ServiceResponse getAllPayment();
 }
 

@@ -58,7 +58,7 @@ public class ComplainController {
                     HttpStatus.BAD_REQUEST);
         }
     }
-    @DeleteMapping("/deletecomplain")
+    @PostMapping("/deletecomplain")
     public ResponseEntity<StandardResponce> deleteComplain(@RequestBody ComplainDTO complainDTO) {
         ServiceResponse massage = complainService.deleteComplain(complainDTO.getComplain_id());
         if(massage.isSuccess()) {
