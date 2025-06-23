@@ -2,10 +2,7 @@ package com.uoj.HostelEase.service.IMPL;
 
 import com.uoj.HostelEase.dto.UserLoginRequestDTO;
 import com.uoj.HostelEase.dto.UserRegRequestDTO;
-import com.uoj.HostelEase.entity.AdminEntity;
-import com.uoj.HostelEase.entity.StudentEntity;
-import com.uoj.HostelEase.entity.UserEntity;
-import com.uoj.HostelEase.entity.WardenEntity;
+import com.uoj.HostelEase.entity.*;
 import com.uoj.HostelEase.repo.AdminRepository;
 import com.uoj.HostelEase.repo.StudentRepository;
 import com.uoj.HostelEase.repo.UserRepository;
@@ -17,7 +14,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -124,6 +124,72 @@ public class UserServiceIMPL implements UserService {
             }
         }
         return null;
+    }
+
+    @Override
+    public ServiceResponse getAllUser() {
+
+        List<UserEntity> users = new ArrayList<>();
+        try{
+            users.addAll(userRepository.findAll());
+            if(users.size()>0){
+                return new ServiceResponse(true, users,null);
+            }else{
+                return new ServiceResponse(false, "No Any users",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
+        }
+
+    }
+
+    @Override
+    public ServiceResponse getAllWarden() {
+        List<UserEntity> users = new ArrayList<>();
+        try{
+            users.addAll(userRepository.findByRoleLike("Warden"));
+            if(users.size()>0){
+                return new ServiceResponse(true, users,null);
+            }else{
+                return new ServiceResponse(false, "No Any Warden",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
+        }
+    }
+
+    @Override
+    public ServiceResponse getAllAdmin() {
+        List<UserEntity> users = new ArrayList<>();
+        try{
+            users.addAll(userRepository.findByRoleLike("Admin"));
+            if(users.size()>0){
+                return new ServiceResponse(true, users,null);
+            }else{
+                return new ServiceResponse(false, "No Any Admin",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
+        }
+    }
+
+    @Override
+    public ServiceResponse getAllStudent() {
+        List<UserEntity> users = new ArrayList<>();
+        try{
+            users.addAll(userRepository.findByRoleLike("Student"));
+            if(users.size()>0){
+                return new ServiceResponse(true, users,null);
+            }else{
+                return new ServiceResponse(false, "No Any Student",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
+        }
     }
 
     private void student(String regNo){

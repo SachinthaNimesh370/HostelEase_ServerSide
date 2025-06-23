@@ -58,7 +58,7 @@ public class VisitorController {
         }
     }
 
-    @DeleteMapping("/deletevisitor")
+    @PostMapping("/deletevisitor")
     public ResponseEntity<StandardResponce> deleteVisitor(@RequestBody VisitorDTO visitorDTO) {
         ServiceResponse massage = visitorService.deleteVisitor(visitorDTO.getVisitor_id());
         if(massage.isSuccess()) {
