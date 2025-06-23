@@ -56,7 +56,7 @@ public class PaymentController {
         }
     }
 
-    @DeleteMapping("/deletepayment")
+    @PostMapping("/deletepayment")
     public ResponseEntity<StandardResponce> deletePayment(@RequestBody PaymentDTO paymentDTO) {
         System.out.println(paymentDTO.getPayment_id());
         ServiceResponse massage = paymentService.deletePayment(paymentDTO.getPayment_id());
