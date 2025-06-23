@@ -9,6 +9,9 @@ import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PaymentServiceIMPL implements PaymentService {
     private final PaymentRepository paymentRepository;
@@ -68,6 +71,22 @@ public class PaymentServiceIMPL implements PaymentService {
             }
         }else {
             return new ServiceResponse(false,"Payment Not Found",null);
+        }
+    }
+
+    @Override
+    public ServiceResponse getAllPayment() {
+        List<PaymentEntity> payments = new ArrayList<>();
+        try{
+            payments.addAll(paymentRepository.findAll());
+            if(payments.size()>0){
+                return new ServiceResponse(true, payments,null);
+            }else{
+                return new ServiceResponse(false, "No Payments",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
         }
     }
 }
