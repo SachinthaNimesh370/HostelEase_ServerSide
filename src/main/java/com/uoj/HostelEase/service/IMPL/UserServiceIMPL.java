@@ -15,10 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserServiceIMPL implements UserService {
@@ -102,7 +99,7 @@ public class UserServiceIMPL implements UserService {
         if(isEnablePerson(userRegRequestDTO.getRegNo())){
             try{
                 UserEntity userEntity=modelMapper.map(userRegRequestDTO,UserEntity.class);
-                userEntity.setPassword(passwordEncoder.encode(userRegRequestDTO.getPassword()));
+                userEntity.setPassword(getUserDetails(userRegRequestDTO.getRegNo()).getPassword());
                 userRepository.save(userEntity);
                 if(userEntity.isState()){
                     if(userEntity.getRole().equals("Student")){
@@ -124,6 +121,10 @@ public class UserServiceIMPL implements UserService {
             }
         }
         return null;
+    }
+    private UserEntity getUserDetails(String regNo){
+        Optional<UserEntity> userDetails=userRepository.findByRegNo(regNo);
+        return userDetails.get();
     }
 
     @Override
