@@ -49,13 +49,6 @@ public class ComplainServiceIMPL implements ComplainService {
             }
             complainEntity.setStudent(student);
 
-            // Fetch and set warden
-            WardenEntity warden = wardenRepository.findById(complainDTO.getWarden_id()).orElse(null);
-            if (warden == null) {
-                return new ServiceResponse(false, "Warden not found", null);
-            }
-            complainEntity.setWarden(warden);
-
             // Save
             complainRepository.save(complainEntity);
             return new ServiceResponse(true, "Complain Saved", null);
@@ -70,14 +63,19 @@ public class ComplainServiceIMPL implements ComplainService {
     @Override
     public ServiceResponse updateComplain(ComplainDTO complainDTO) {
         if(isExist(complainDTO.getComplain_id())){
-            try {
-                ComplainEntity complainEntity = modelMapper.map(complainDTO, ComplainEntity.class);
-                complainRepository.save(complainEntity);
-                return new ServiceResponse(true,"Complain Saved",null);
-            } catch (Exception e) {
-                System.out.println(e);
-                return new ServiceResponse(false,"Complain Can't Save",null);
+            if(complainDTO.getStatus() != "Pending" && complainDTO.getWarden_id() != null){
+                try {
+                    ComplainEntity complainEntity = modelMapper.map(complainDTO, ComplainEntity.class);
+                    complainRepository.save(complainEntity);
+                    return new ServiceResponse(true,"Complain Update",null);
+                } catch (Exception e) {
+                    System.out.println(e);
+                    return new ServiceResponse(false,"Complain Can't Update",null);
+                }
+            }else{
+                return new ServiceResponse(false,"Please Check Warden Id !",null);
             }
+
         }else {
             return new ServiceResponse(false,"Complain Not Found",null);
         }
