@@ -35,7 +35,6 @@ public class StudentEntity {
     private WardenEntity warden;
 
     private String duration;
-    private String acadYear;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
