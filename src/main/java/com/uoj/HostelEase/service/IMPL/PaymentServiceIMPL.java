@@ -38,6 +38,7 @@ public class PaymentServiceIMPL implements PaymentService {
             paymentRepository.save(paymentEntity);
             return new ServiceResponse(true,"Payment Receipt Send.Please Wait For Approve",null);
         } catch (Exception e) {
+            System.out.println(e);
             return new ServiceResponse(false,"Payment Recept Sending Fail.Please Try Again !",null);
         }
     }
@@ -46,38 +47,50 @@ public class PaymentServiceIMPL implements PaymentService {
     public ServiceResponse updatePayment(PaymentDTO paymentDTO) {
         Optional<PaymentEntity> existingOpt = paymentRepository.findById(paymentDTO.getPayment_id());
 
-        if (existingOpt.isPresent()) {
-            try {
-                PaymentEntity existing = existingOpt.get();
-
-                // Update basic fields
-                existing.setAmount(paymentDTO.getAmount());
-                existing.setDate(paymentDTO.getDate());
-                existing.setDescription(paymentDTO.getDescription());
-                existing.setStatus(paymentDTO.getStatus());
-
-                // Fetch related student and warden
-                StudentEntity student = studentRepository.findById(paymentDTO.getStudent_id()).orElse(null);
-                WardenEntity warden = wardenRepository.findById(paymentDTO.getWarden_id()).orElse(null);
-
-                if (student == null || warden == null) {
-                    return new ServiceResponse(false, "Invalid student or warden ID", null);
-                }
-
-                existing.setStudent(student);
-                existing.setWarden(warden);
-
-                paymentRepository.save(existing);
-                return new ServiceResponse(true, "Payment Receipt Sent. Please Wait For Approval.", null);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return new ServiceResponse(false, "Payment Receipt Sending Failed. Please Try Again!", null);
-            }
-        } else {
+        if (existingOpt.isEmpty()) {
             return new ServiceResponse(false, "Payment Not Found", null);
         }
+        try {
+            PaymentEntity existing = existingOpt.get();
+            existing.setAmount(paymentDTO.getAmount());
+            existing.setDate(paymentDTO.getDate());
+            existing.setDescription(paymentDTO.getDescription());
+            existing.setStatus(paymentDTO.getStatus());
+            StudentEntity student = studentRepository.findById(paymentDTO.getStudent_id()).orElse(null);
+            WardenEntity warden = null;
+            if (paymentDTO.getWarden_id() != null) {
+                warden = wardenRepository.findById(paymentDTO.getWarden_id()).orElse(null);
+            }
+            String status = paymentDTO.getStatus();
+            if ("Pending".equals(status)) {
+                if (student == null) {
+                    return new ServiceResponse(false, "Invalid student ID.", null);
+                }
+                existing.setStudent(student);
+                existing.setWarden(warden);
+                paymentRepository.save(existing);
+                return new ServiceResponse(true, "Payment Receipt Sent. Please Wait For Approval.", null);
+            }
+            if ("Approved".equals(status)) {
+                if (paymentDTO.getWarden_id() == null || warden == null) {
+                    return new ServiceResponse(false, "Please assign a valid Warden ID for approval.", null);
+                }
+                if (student == null) {
+                    return new ServiceResponse(false, "Invalid student ID.", null);
+                }
+                existing.setStudent(student);
+                existing.setWarden(warden);
+                paymentRepository.save(existing);
+                return new ServiceResponse(true, "Payment Approved Successfully.", null);
+            }
+            return new ServiceResponse(false, "Invalid payment status provided.", null);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Payment Receipt Sending Failed. Please Try Again!", null);
+        }
     }
+
 
 
 

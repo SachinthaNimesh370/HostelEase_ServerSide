@@ -39,7 +39,7 @@ public class StudentEntity {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
-    @JsonBackReference // Back part of the reference
+    @JsonBackReference
     private RoomEntity room;
 
     @OneToMany(mappedBy = "student")
