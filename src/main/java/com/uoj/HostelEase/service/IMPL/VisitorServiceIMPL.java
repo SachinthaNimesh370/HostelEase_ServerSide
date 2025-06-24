@@ -59,18 +59,29 @@ public class VisitorServiceIMPL implements VisitorService {
 
     @Override
     public ServiceResponse updateVisitor(VisitorDTO visitorDTO) {
-        if(isExist(visitorDTO.getVisitor_id())){
-            try {
-                VisitorEntity visitorEntity = modelMapper.map(visitorDTO, VisitorEntity.class);
-                visitorRepository.save(visitorEntity);
-                return new ServiceResponse(true,"Request Is Approved",null);
-            } catch (Exception e) {
-                return new ServiceResponse(false,"Request Can not Approved.Please Try Again",null);
-            }
-        }else {
-            return new ServiceResponse(false,"Request Not Found",null);
+        if (!isExist(visitorDTO.getVisitor_id())) {
+            return new ServiceResponse(false, "Request Not Found", null);
+        }
+        if (visitorDTO.getStudent_id() == null || visitorDTO.getStudent_id().isEmpty()) {
+            return new ServiceResponse(false, "Student ID is required.", null);
+        }
+        String state = visitorDTO.getState();
+        if ("Pending".equals(state) && visitorDTO.getWarden_id() != null) {
+            return new ServiceResponse(false, "Warden ID should not be assigned while state is Pending.", null);
+        }
+        if ("Approved".equals(state) && (visitorDTO.getWarden_id() == null || visitorDTO.getWarden_id().isEmpty())) {
+            return new ServiceResponse(false, "Warden ID is required when approving the request.", null);
+        }
+        try {
+            VisitorEntity visitorEntity = modelMapper.map(visitorDTO, VisitorEntity.class);
+            visitorRepository.save(visitorEntity);
+            return new ServiceResponse(true, "Request is Approved", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Request cannot be approved. Please try again.", null);
         }
     }
+
 
     @Override
     public ServiceResponse deleteVisitor(int visitorId) {
