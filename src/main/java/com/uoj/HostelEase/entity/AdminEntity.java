@@ -23,4 +23,7 @@ public class AdminEntity {
     @OneToMany(mappedBy = "admin")
     private List<StudentEntity> students;
 
+    @OneToMany(mappedBy = "admin")
+    private List<WardenEntity> warden;
+
 }

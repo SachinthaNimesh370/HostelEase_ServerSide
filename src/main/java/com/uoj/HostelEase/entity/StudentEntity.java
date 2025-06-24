@@ -34,7 +34,6 @@ public class StudentEntity {
     @JsonIgnore
     private WardenEntity warden;
 
-    private String faculty;
     private String duration;
     private String acadYear;
 

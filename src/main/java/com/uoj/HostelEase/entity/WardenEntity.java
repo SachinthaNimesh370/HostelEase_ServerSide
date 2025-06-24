@@ -18,6 +18,14 @@ public class WardenEntity {
 
     @Id
     private String warden_id;
+    private String hostel_name;
+    private String block;
+
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    @JsonIgnore
+    private AdminEntity admin;
 
     @OneToOne
     @JoinColumn(name = "warden_id", referencedColumnName = "regNo")
@@ -28,7 +36,7 @@ public class WardenEntity {
     private List<StudentEntity> students;
 
     @OneToMany(mappedBy = "warden")
-    @JsonIgnore // 🔴 This is the key to stopping the recursive loop
+    @JsonIgnore
     private List<RoomEntity> rooms;
 
     @OneToMany(mappedBy = "warden")
