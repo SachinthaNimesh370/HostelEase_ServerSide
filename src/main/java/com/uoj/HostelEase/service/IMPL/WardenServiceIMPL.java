@@ -26,33 +26,23 @@ public class WardenServiceIMPL implements WardenService {
 
     @Override
     public ServiceResponse updateWarden(WardenDTO wardenDTO) {
-
         Optional<WardenEntity> optionalWarden = wardenRepository.findById(wardenDTO.getWarden_id());
         System.out.println(optionalWarden.get().getWarden_id());
         if (optionalWarden.isEmpty()) {
             return new ServiceResponse(false, "Warden not found with ID", null);
         }
-
-
         if (wardenDTO.getAdmin_id() == null || wardenDTO.getAdmin_id().isEmpty()) {
             return new ServiceResponse(false, "Admin ID must not be null or empty.", null);
         }
-
-
         Optional<AdminEntity> optionalAdmin = adminRepository.findById(wardenDTO.getAdmin_id());
         if (optionalAdmin.isEmpty()) {
             return new ServiceResponse(false, "Admin not found with ID: " + wardenDTO.getAdmin_id(), null);
         }
-
-
         WardenEntity wardenEntity = optionalWarden.get();
         wardenEntity.setHostel_name(wardenDTO.getHostel_name());
         wardenEntity.setBlock(wardenDTO.getBlock());
         wardenEntity.setAdmin(optionalAdmin.get());
-
-
         wardenRepository.save(wardenEntity);
-
         return new ServiceResponse(true, "Warden updated successfully.", null);
     }
 
