@@ -15,5 +15,5 @@ public class StudentDTO {
     private String duration;
     private String admin_id;
     private String warden_id;
-    private int room_id;
+    private String room_id;
 }
