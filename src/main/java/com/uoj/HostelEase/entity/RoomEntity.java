@@ -18,7 +18,7 @@ public class RoomEntity {
     private String room_id;
 
     private String roomNo;
-    private String type;
+    private int type;
     private boolean ac;
     private int currentCount;
 

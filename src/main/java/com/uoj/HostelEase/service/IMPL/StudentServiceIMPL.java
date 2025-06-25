@@ -60,15 +60,39 @@ public class StudentServiceIMPL implements StudentService {
         }
 
         StudentEntity studentEntity = optionalStudent.get();
+        RoomEntity previousRoom = studentEntity.getRoom();
+        RoomEntity newRoom = optionalRoom.get();
+
+        // Check if the student is moving to a new room
+        if (previousRoom == null || !previousRoom.getRoom_id().equals(newRoom.getRoom_id())) {
+            // Capacity check
+            if (newRoom.getCurrentCount() == newRoom.getType()) {
+                return new ServiceResponse(false, "Room is already full. Cannot assign student.", null);
+            }
+
+            // Decrease count in old room
+            if (previousRoom != null) {
+                previousRoom.setCurrentCount(previousRoom.getCurrentCount() - 1);
+                roomRepository.save(previousRoom);
+            }
+
+            // Increase count in new room
+            newRoom.setCurrentCount(newRoom.getCurrentCount() + 1);
+            roomRepository.save(newRoom);
+
+            studentEntity.setRoom(newRoom); // Assign new room
+        }
+
         studentEntity.setDuration(studentDTO.getDuration());
         studentEntity.setAdmin(optionalAdmin.get());
         studentEntity.setWarden(optionalWarden.get());
-        studentEntity.setRoom(optionalRoom.get());
 
         studentRepository.save(studentEntity);
 
         return new ServiceResponse(true, "Student updated successfully.", null);
     }
+
+
 
     @Override
     public ServiceResponse getAllStudent() {
