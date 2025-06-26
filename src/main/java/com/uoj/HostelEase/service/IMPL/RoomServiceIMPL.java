@@ -96,4 +96,28 @@ public class RoomServiceIMPL implements RoomService {
         }
     }
 
+    @Override
+    public ServiceResponse getNoOfRooms() {
+        try {
+            long rooms = roomRepository.count();
+            return new ServiceResponse(true, rooms, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Failed to fetch room count: " + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public ServiceResponse getNoOfRoomsAvailable() {
+        try {
+            // Fetch count of rooms where currentCount == 0
+            long availableRooms = roomRepository.countByCurrentCount(0);
+            return new ServiceResponse(true, availableRooms, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Failed to fetch available room count: " + e.getMessage(), null);
+        }
+    }
+
+
 }

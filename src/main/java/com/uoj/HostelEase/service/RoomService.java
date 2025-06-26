@@ -10,4 +10,8 @@ public interface RoomService {
     ServiceResponse deleteRoom(String id);
     ServiceResponse getAllRooms();
 
+    ServiceResponse getNoOfRooms();
+
+    ServiceResponse getNoOfRoomsAvailable();
+
 }
