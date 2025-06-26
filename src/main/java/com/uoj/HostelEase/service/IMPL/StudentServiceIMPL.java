@@ -130,4 +130,15 @@ public class StudentServiceIMPL implements StudentService {
         }
     }
 
+    @Override
+    public ServiceResponse getNoOfStudents() {
+        try {
+            long students = studentRepository.count();
+            return new ServiceResponse(true, students, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Failed to fetch student count: " + e.getMessage(), null);
+        }
+    }
+
 }

@@ -7,4 +7,6 @@ public interface StudentService {
     ServiceResponse updateStudent(StudentDTO studentDTO);
 
     ServiceResponse getAllStudent();
+
+    ServiceResponse getNoOfStudents();
 }
