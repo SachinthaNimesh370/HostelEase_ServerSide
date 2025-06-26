@@ -19,4 +19,5 @@ public class VisitorDTO {
     private String state;
     private String student_id;
     private String warden_id;
+    private String security_id;
 }
