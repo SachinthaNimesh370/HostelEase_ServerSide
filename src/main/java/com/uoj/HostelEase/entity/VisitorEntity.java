@@ -1,5 +1,6 @@
 package com.uoj.HostelEase.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +25,16 @@ public class VisitorEntity {
 
     @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+
     private StudentEntity student;
 
     @ManyToOne
     @JoinColumn(name = "warden_id", referencedColumnName = "warden_id")
+
     private WardenEntity warden;
+
+    @ManyToOne
+    @JoinColumn(name = "security_id", referencedColumnName = "security_id")
+    @JsonBackReference
+    private SecurityEntity security;
 }

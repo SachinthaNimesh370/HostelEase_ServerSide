@@ -21,4 +21,5 @@ public interface UserService {
 
     ServiceResponse getAllStudent();
 
+    ServiceResponse getAllSecurity();
 }

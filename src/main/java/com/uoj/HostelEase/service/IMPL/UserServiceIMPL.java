@@ -3,10 +3,7 @@ package com.uoj.HostelEase.service.IMPL;
 import com.uoj.HostelEase.dto.UserLoginRequestDTO;
 import com.uoj.HostelEase.dto.UserRegRequestDTO;
 import com.uoj.HostelEase.entity.*;
-import com.uoj.HostelEase.repo.AdminRepository;
-import com.uoj.HostelEase.repo.StudentRepository;
-import com.uoj.HostelEase.repo.UserRepository;
-import com.uoj.HostelEase.repo.WardenRepository;
+import com.uoj.HostelEase.repo.*;
 import com.uoj.HostelEase.service.UserService;
 import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
@@ -27,9 +24,10 @@ public class UserServiceIMPL implements UserService {
     private final AdminRepository adminRepository;
     private final StudentRepository studentRepository;
     private final WardenRepository wardenRepository;
+    private final SecurityRepository securityRepository;
 
 
-    public UserServiceIMPL(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTServiceIMPL jwtService,  AdminRepository adminRepository, StudentRepository studentRepository, WardenRepository wardenRepository) {
+    public UserServiceIMPL(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTServiceIMPL jwtService, AdminRepository adminRepository, StudentRepository studentRepository, WardenRepository wardenRepository, SecurityRepository securityRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
@@ -38,6 +36,7 @@ public class UserServiceIMPL implements UserService {
         this.adminRepository = adminRepository;
         this.studentRepository = studentRepository;
         this.wardenRepository = wardenRepository;
+        this.securityRepository = securityRepository;
     }
 
     @Override
@@ -108,6 +107,8 @@ public class UserServiceIMPL implements UserService {
                         admin(userEntity.getRegNo());
                     } else if (userEntity.getRole().equals("Warden")) {
                         warden(userEntity.getRegNo());
+                    }else if (userEntity.getRole().equals("Security")) {
+                        security(userEntity.getRegNo());
                     }
                 }
                 else {
@@ -193,6 +194,22 @@ public class UserServiceIMPL implements UserService {
         }
     }
 
+    @Override
+    public ServiceResponse getAllSecurity() {
+        List<UserEntity> users = new ArrayList<>();
+        try{
+            users.addAll(userRepository.findByRoleLike("Security"));
+            if(users.size()>0){
+                return new ServiceResponse(true, users,null);
+            }else{
+                return new ServiceResponse(false, "No Any Security",null);
+            }
+
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Sorry.Can't Access",null);
+        }
+    }
+
     private void student(String regNo){
         try{
             StudentEntity student = new StudentEntity();
@@ -221,6 +238,16 @@ public class UserServiceIMPL implements UserService {
             warden.setWarden_id(regNo);
             wardenRepository.save(warden);
             System.out.println("Warden added successfully to Warden Entity");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void security(String regNo){
+        try{
+            SecurityEntity security = new SecurityEntity();
+            security.setSecurity_id(regNo);
+            securityRepository.save(security);
+            System.out.println("Admin added successfully to Security Entity");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
