@@ -14,4 +14,5 @@ public interface RoomService {
 
     ServiceResponse getNoOfRoomsAvailable();
 
+    ServiceResponse getOccupancy();
 }

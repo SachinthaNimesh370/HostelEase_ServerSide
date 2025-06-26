@@ -113,6 +113,17 @@ public class VisitorServiceIMPL implements VisitorService {
         }
     }
 
+    @Override
+    public ServiceResponse getPendingVisitor() {
+        try {
+            long count = visitorRepository.countByState("Pending");
+            return new ServiceResponse(true, count, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Sorry. Can't Access", null);
+        }
+    }
+
     private boolean isExist(int id){
         if(visitorRepository.existsById(id)){
             return true;

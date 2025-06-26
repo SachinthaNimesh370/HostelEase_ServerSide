@@ -10,4 +10,5 @@ public interface VisitorService {
 
     ServiceResponse getAllVisitor();
 
+    ServiceResponse getPendingVisitor();
 }

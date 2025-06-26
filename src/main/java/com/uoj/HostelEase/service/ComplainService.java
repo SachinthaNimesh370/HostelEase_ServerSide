@@ -8,4 +8,7 @@ public interface ComplainService {
     ServiceResponse updateComplain(ComplainDTO complainDTO);
     ServiceResponse deleteComplain(int complainId);
     ServiceResponse getAllComplain();
+
+    ServiceResponse getPendingComplain();
+
 }

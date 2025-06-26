@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 @Service
 public class RoomServiceIMPL implements RoomService {
@@ -116,6 +117,24 @@ public class RoomServiceIMPL implements RoomService {
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResponse(false, "Failed to fetch available room count: " + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public ServiceResponse getOccupancy() {
+        try {
+            int currentCount = roomRepository.getTotalCurrentStudents();
+            int totalCapacity = roomRepository.getTotalCapacity();
+            int availableCount = totalCapacity - currentCount;
+
+            Map<String, Object> result = new HashMap<>();
+            result.put("currentCount", currentCount);
+            result.put("availableCount", availableCount);
+
+            return new ServiceResponse(true, result, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Sorry. Can't Access", null);
         }
     }
 
