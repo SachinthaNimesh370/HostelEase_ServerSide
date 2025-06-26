@@ -11,5 +11,7 @@ public interface PaymentService {
     ServiceResponse deletePayment(int paymentId);
 
     ServiceResponse getAllPayment();
+
+    ServiceResponse getPendingPayment();
 }
 

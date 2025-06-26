@@ -92,4 +92,22 @@ public class PaymentController {
                     HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/getpendingpayment")
+    public ResponseEntity<StandardResponce> getPendingPayment(){
+        ServiceResponse massage = paymentService.getPendingPayment();
+        if(massage.isSuccess()) {
+            return new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200, "Ok", new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                    HttpStatus.OK);
+        }else{
+            return new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
 }

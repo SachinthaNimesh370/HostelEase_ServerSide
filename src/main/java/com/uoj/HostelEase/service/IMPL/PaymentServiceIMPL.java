@@ -10,7 +10,6 @@ import com.uoj.HostelEase.service.PaymentService;
 import com.uoj.HostelEase.utill.ServiceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -132,4 +131,16 @@ public class PaymentServiceIMPL implements PaymentService {
             return new ServiceResponse(false, "Sorry.Can't Access",null);
         }
     }
+
+    @Override
+    public ServiceResponse getPendingPayment() {
+        try {
+            long count = paymentRepository.countByStatus("Pending");
+            return new ServiceResponse(true, count, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Sorry. Can't Access", null);
+        }
+    }
+
 }

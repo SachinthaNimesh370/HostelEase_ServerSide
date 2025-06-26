@@ -113,6 +113,17 @@ public class ComplainServiceIMPL implements ComplainService {
 
     }
 
+    @Override
+    public ServiceResponse getPendingComplain() {
+        try {
+            long count = complainRepository.countByStatus("Pending");
+            return new ServiceResponse(true, count, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResponse(false, "Sorry. Can't Access", null);
+        }
+    }
+
     private boolean isExist(int id){
         if(complainRepository.existsById(id)){
             return true;
