@@ -25,91 +25,91 @@ public class ComplainController {
 
     @PostMapping("/newcomplain")
     public ResponseEntity<StandardResponce> newComplain(@RequestBody ComplainDTO complainDTO) {
-        ServiceResponse massage = complainService.newComplain(complainDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message = complainService.newComplain(complainDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
-                    HttpStatus.OK);
+                            201, "Created", new UserLoginResponceDTO(
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
+                    HttpStatus.CREATED);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/updatecomplain")
     public ResponseEntity<StandardResponce> updateComplain(@RequestBody ComplainDTO complainDTO) {
-        ServiceResponse massage = complainService.updateComplain(complainDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message = complainService.updateComplain(complainDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping("/deletecomplain")
     public ResponseEntity<StandardResponce> deleteComplain(@RequestBody ComplainDTO complainDTO) {
-        ServiceResponse massage = complainService.deleteComplain(complainDTO.getComplain_id());
-        if(massage.isSuccess()) {
+        ServiceResponse message = complainService.deleteComplain(complainDTO.getComplain_id());
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/getallcomplain")
     public ResponseEntity<StandardResponce> getAllComplain() {
-        ServiceResponse massage = complainService.getAllComplain();
+        ServiceResponse message = complainService.getAllComplain();
 
-        if(massage.isSuccess()) {
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/getpendingcomplain")
     public ResponseEntity<StandardResponce> getPendingComplain() {
-        ServiceResponse massage = complainService.getPendingComplain();
+        ServiceResponse message = complainService.getPendingComplain();
 
-        if(massage.isSuccess()) {
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }

@@ -23,72 +23,72 @@ public class RoomController {
 
     @GetMapping("getallroom")
     public ResponseEntity<StandardResponce> getAllRooms() {
-        ServiceResponse massage =wardenService.getAllRooms();
-        if(massage.isSuccess()) {
+        ServiceResponse message =wardenService.getAllRooms();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("getnoroom")
     public ResponseEntity<StandardResponce> getNoOfRooms() {
-        ServiceResponse massage =wardenService.getNoOfRooms();
-        if(massage.isSuccess()) {
+        ServiceResponse message =wardenService.getNoOfRooms();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("getnoroomavailable")
     public ResponseEntity<StandardResponce> getNoOfRoomsAvailable() {
-        ServiceResponse massage =wardenService.getNoOfRoomsAvailable();
-        if(massage.isSuccess()) {
+        ServiceResponse message =wardenService.getNoOfRoomsAvailable();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("getoccupancy")
     public ResponseEntity<StandardResponce> getOccupancy() {
-        ServiceResponse massage =wardenService.getOccupancy();
-        if(massage.isSuccess()) {
+        ServiceResponse message =wardenService.getOccupancy();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
@@ -98,18 +98,18 @@ public class RoomController {
 
     @PostMapping("/newroom")
     public ResponseEntity<StandardResponce> newRoom(@RequestBody RoomDTO roomDTO) {
-        ServiceResponse massage =wardenService.newRoom(roomDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message =wardenService.newRoom(roomDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
-                    HttpStatus.OK);
+                            201, "Created", new UserLoginResponceDTO(
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
+                    HttpStatus.CREATED);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
@@ -117,35 +117,35 @@ public class RoomController {
     @PostMapping("/updateroom")
     public ResponseEntity<StandardResponce> updateRoom(@RequestBody RoomDTO roomDTO) {
         System.out.println(roomDTO.getRoom_id());
-        ServiceResponse massage =wardenService.updateRoom(roomDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message =wardenService.updateRoom(roomDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping("/deleteroom")
     public ResponseEntity<StandardResponce> deleteRoom(@RequestBody RoomDTO roomDTO) {
-        ServiceResponse massage= wardenService.deleteRoom(roomDTO.getRoom_id());
-        if(massage.isSuccess()) {
+        ServiceResponse message= wardenService.deleteRoom(roomDTO.getRoom_id());
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
 

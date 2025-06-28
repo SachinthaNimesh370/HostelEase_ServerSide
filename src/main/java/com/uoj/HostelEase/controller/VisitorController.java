@@ -24,89 +24,89 @@ public class VisitorController {
 
     @PostMapping("/newvisitor")
     public ResponseEntity<StandardResponce> newVisitor(@RequestBody VisitorDTO visitorDTO) {
-        ServiceResponse massage = visitorService.newVisitor(visitorDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message = visitorService.newVisitor(visitorDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
-                    HttpStatus.OK);
+                            201, "Created", new UserLoginResponceDTO(
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
+                    HttpStatus.CREATED);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/updatevisitor")
     public ResponseEntity<StandardResponce> updateVisitor(@RequestBody VisitorDTO visitorDTO) {
-        ServiceResponse massage = visitorService.updateVisitor(visitorDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message = visitorService.updateVisitor(visitorDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/deletevisitor")
     public ResponseEntity<StandardResponce> deleteVisitor(@RequestBody VisitorDTO visitorDTO) {
-        ServiceResponse massage = visitorService.deleteVisitor(visitorDTO.getVisitor_id());
-        if(massage.isSuccess()) {
+        ServiceResponse message = visitorService.deleteVisitor(visitorDTO.getVisitor_id());
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
     @GetMapping("getallvisitor")
     public ResponseEntity<StandardResponce> getAllVisitor() {
-        ServiceResponse massage = visitorService.getAllVisitor();
-        if(massage.isSuccess()) {
+        ServiceResponse message = visitorService.getAllVisitor();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()),message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("getpendingvisitor")
     public ResponseEntity<StandardResponce> getPendingVisitor() {
-        ServiceResponse massage = visitorService.getPendingVisitor();
-        if(massage.isSuccess()) {
+        ServiceResponse message = visitorService.getPendingVisitor();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
