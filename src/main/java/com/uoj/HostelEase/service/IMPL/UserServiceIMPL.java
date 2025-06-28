@@ -1,5 +1,6 @@
 package com.uoj.HostelEase.service.IMPL;
 
+import com.uoj.HostelEase.dto.UserApproveDTO;
 import com.uoj.HostelEase.dto.UserLoginRequestDTO;
 import com.uoj.HostelEase.dto.UserRegRequestDTO;
 import com.uoj.HostelEase.entity.*;
@@ -94,19 +95,19 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public ServiceResponse userUpdate(UserRegRequestDTO userRegRequestDTO) {
-        if(isEnablePerson(userRegRequestDTO.getRegNo())){
+    public ServiceResponse userUpdate(UserApproveDTO userApproveDTO) {
+        if(isEnablePerson(userApproveDTO.getRegNo())){
             try{
-                UserEntity userEntity=modelMapper.map(userRegRequestDTO,UserEntity.class);
-                userEntity.setPassword(getUserDetails(userRegRequestDTO.getRegNo()).getPassword());
+                UserEntity userEntity=modelMapper.map(userApproveDTO,UserEntity.class);
+                userEntity.setPassword(getUserDetails(userApproveDTO.getRegNo()).getPassword());
                 userRepository.save(userEntity);
                 if(userEntity.isState()){
                     if(userEntity.getRole().equals("Student")){
-                        student(userEntity.getRegNo());
+                        student(userEntity.getRegNo(),userApproveDTO.getAdmin_id());
                     } else if (userEntity.getRole().equals("Admin")) {
                         admin(userEntity.getRegNo());
                     } else if (userEntity.getRole().equals("Warden")) {
-                        warden(userEntity.getRegNo());
+                        warden(userEntity.getRegNo(),userApproveDTO.getAdmin_id());
                     }else if (userEntity.getRole().equals("Security")) {
                         security(userEntity.getRegNo());
                     }
@@ -210,16 +211,35 @@ public class UserServiceIMPL implements UserService {
         }
     }
 
-    private void student(String regNo){
+    @Override
+    public ServiceResponse deleteUser(String id) {
+        if(isEnablePerson(id)){
+            try {
+                userRepository.deleteById(id);
+                return new ServiceResponse(true, "User Deleted successfully",null);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                return new ServiceResponse(false, "User Delete Failed",null);
+            }
+        }else{
+            return new ServiceResponse(false, "Can't Find User Reg No",null);
+        }
+    }
+
+    private void student(String regNo,String admin_id){
         try{
             StudentEntity student = new StudentEntity();
+            AdminEntity admin = new AdminEntity();
+            admin.setAdmin_id(admin_id);
             student.setStudent_id(regNo);
+            student.setAdmin(admin);
             studentRepository.save(student);
             System.out.println("student added successfully to Student Entity");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
 
     private void admin(String regNo){
         try{
@@ -232,10 +252,13 @@ public class UserServiceIMPL implements UserService {
         }
     }
 
-    private void warden(String regNo){
+    private void warden(String regNo,String admin_id){
         try{
             WardenEntity warden = new WardenEntity();
+            AdminEntity admin = new AdminEntity();
+            admin.setAdmin_id(admin_id);
             warden.setWarden_id(regNo);
+            warden.setAdmin(admin);
             wardenRepository.save(warden);
             System.out.println("Warden added successfully to Warden Entity");
         } catch (Exception e) {
