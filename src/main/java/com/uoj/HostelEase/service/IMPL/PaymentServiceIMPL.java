@@ -33,14 +33,37 @@ public class PaymentServiceIMPL implements PaymentService {
     @Override
     public ServiceResponse newPayment(PaymentDTO paymentDTO) {
         try {
-            PaymentEntity paymentEntity=modelMapper.map(paymentDTO,PaymentEntity.class);
+            // Map fields except student and warden
+            PaymentEntity paymentEntity = new PaymentEntity();
+            paymentEntity.setAmount(paymentDTO.getAmount());
+            paymentEntity.setDate(paymentDTO.getDate());
+            paymentEntity.setDescription(paymentDTO.getDescription());
+            paymentEntity.setStatus(paymentDTO.getStatus());
+
+            // Fetch and set the student
+            Optional<StudentEntity> studentOpt = studentRepository.findById(paymentDTO.getStudent_id());
+            if (studentOpt.isEmpty()) {
+                return new ServiceResponse(false, "Invalid Student ID", null);
+            }
+            paymentEntity.setStudent(studentOpt.get());
+
+            // Fetch and set the warden
+            Optional<WardenEntity> wardenOpt = wardenRepository.findById(paymentDTO.getWarden_id());
+            if (wardenOpt.isEmpty()) {
+                return new ServiceResponse(false, "Invalid Warden ID", null);
+            }
+            paymentEntity.setWarden(wardenOpt.get());
+
+            // Save the payment
             paymentRepository.save(paymentEntity);
-            return new ServiceResponse(true,"Payment Receipt Send.Please Wait For Approve",null);
+            return new ServiceResponse(true, "Payment Receipt Sent. Please Wait for Approval.", null);
+
         } catch (Exception e) {
             System.out.println(e);
-            return new ServiceResponse(false,"Payment Recept Sending Fail.Please Try Again !",null);
+            return new ServiceResponse(false, "Payment Receipt Sending Failed. Please Try Again!", null);
         }
     }
+
 
     @Override
     public ServiceResponse updatePayment(PaymentDTO paymentDTO) {
