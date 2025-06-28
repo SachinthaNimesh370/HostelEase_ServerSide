@@ -23,54 +23,54 @@ public class StudentController {
 
     @GetMapping("/getallstudent")
     public ResponseEntity<StandardResponce> getAllStudent() {
-        ServiceResponse massage = studentService.getAllStudent();
-        if(massage.isSuccess()) {
+        ServiceResponse message = studentService.getAllStudent();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/getnostudent")
     public ResponseEntity<StandardResponce> getNoOfStudents() {
-        ServiceResponse massage = studentService.getNoOfStudents();
-        if(massage.isSuccess()) {
+        ServiceResponse message = studentService.getNoOfStudents();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/updatestudent")
     public ResponseEntity<StandardResponce> updateWarden(@RequestBody StudentDTO studentDTO) {
-        ServiceResponse massage = studentService.updateStudent(studentDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message = studentService.updateStudent(studentDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }

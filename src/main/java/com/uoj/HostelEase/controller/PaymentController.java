@@ -23,35 +23,35 @@ public class PaymentController {
 
     @PostMapping("/newpayment")
     public ResponseEntity<StandardResponce> newPayment(@RequestBody PaymentDTO paymentDTO) {
-        ServiceResponse massage =paymentService.newPayment(paymentDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message =paymentService.newPayment(paymentDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
-                    HttpStatus.OK);
+                            201, "Created", new UserLoginResponceDTO(
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
+                    HttpStatus.CREATED);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping("/updatepayment")
     public ResponseEntity<StandardResponce> updatePayment(@RequestBody PaymentDTO paymentDTO) {
-        ServiceResponse massage =paymentService.updatePayment(paymentDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message =paymentService.updatePayment(paymentDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
@@ -59,54 +59,54 @@ public class PaymentController {
     @PostMapping("/deletepayment")
     public ResponseEntity<StandardResponce> deletePayment(@RequestBody PaymentDTO paymentDTO) {
         System.out.println(paymentDTO.getPayment_id());
-        ServiceResponse massage = paymentService.deletePayment(paymentDTO.getPayment_id());
-        if(massage.isSuccess()) {
+        ServiceResponse message = paymentService.deletePayment(paymentDTO.getPayment_id());
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/getallpayment")
     public ResponseEntity<StandardResponce> getAllPayment(){
-        ServiceResponse massage = paymentService.getAllPayment();
-        if(massage.isSuccess()) {
+        ServiceResponse message = paymentService.getAllPayment();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/getpendingpayment")
     public ResponseEntity<StandardResponce> getPendingPayment(){
-        ServiceResponse massage = paymentService.getPendingPayment();
-        if(massage.isSuccess()) {
+        ServiceResponse message = paymentService.getPendingPayment();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }

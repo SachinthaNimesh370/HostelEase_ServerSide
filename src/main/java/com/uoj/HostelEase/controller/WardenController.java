@@ -23,53 +23,53 @@ public class WardenController {
 
     @GetMapping("/getallwarden")
     public ResponseEntity<StandardResponce> getAllWarden() {
-        ServiceResponse massage = wardenService.getAllWardn();
-        if(massage.isSuccess()) {
+        ServiceResponse message = wardenService.getAllWardn();
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/updatewarden")
     public ResponseEntity<StandardResponce> updateWarden(@RequestBody WardenDTO wardenDTO) {
-        ServiceResponse massage = wardenService.updateWarden(wardenDTO);
-        if(massage.isSuccess()) {
+        ServiceResponse message = wardenService.updateWarden(wardenDTO);
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping("/deletewarden")
     public ResponseEntity<StandardResponce> deleteWarden(@RequestBody WardenDTO wardenDTO) {
-        ServiceResponse massage = wardenService.deleteWarden(wardenDTO.getWarden_id());
-        if(massage.isSuccess()) {
+        ServiceResponse message = wardenService.deleteWarden(wardenDTO.getWarden_id());
+        if(message.isSuccess()) {
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
                             200, "Ok", new UserLoginResponceDTO(
-                            massage.getObject(), LocalDateTime.now()), massage.getRole()),
+                            message.getObject(), LocalDateTime.now()), message.getRole()),
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<StandardResponce>(
                     new StandardResponce(
-                            400,"Bad", new UserLoginResponceDTO(
-                            massage.getObject(),null),null),
+                            400,"Bad Request", new UserLoginResponceDTO(
+                            message.getObject(),null),null),
                     HttpStatus.BAD_REQUEST);
         }
     }
