@@ -21,6 +21,14 @@ HostelEase is a backend system for managing hostel operations such as user regis
 ---
 
 
+## 📄 Developer Documentation
+
+For detailed internal documentation, architecture, and setup guidance, refer to the developer documentation:
+
+📎 [View Full Developer Docs (Google Drive)](https://drive.google.com/drive/folders/14quMnEBySgO0R6KyiMtoZJfi34G45zr-?usp=drive_link)
+
+---
+
 
 ## 📁 Project Structure
 ```
@@ -141,9 +149,8 @@ spring.jpa.show-sql=true
 ## 📌 To-Do (Future Enhancements)
 
 ### 🚀 Planned for v2.0
-- 🔗 **WhatsApp Integration** for complaint submission and updates, offering a familiar interface for users
-- 🤖 **AI Assistant Integration** to guide users, answer hostel-related queries, and automate support using NLP
-- - Add **Admin role** with dashboard access and management capabilities
+- **WhatsApp Integration** for complaint submission and updates, offering a familiar interface for users
+- **AI Assistant Integration** to guide users, answer hostel-related queries, and automate support using NLP
 - Integrate **Swagger/OpenAPI** documentation for API exploration
 - Add **Email/SMS notifications** for real-time communication
 - **Dockerize** the backend for easier deployment
