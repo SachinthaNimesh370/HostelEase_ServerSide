@@ -1,16 +1,15 @@
-package com.uoj.HostelEase.entity;
+package com.uoj.HostelEase.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity {
-    @Id
+public class UserApproveDTO {
     private String regNo;
     private String f_Name;
     private String l_Name;
@@ -20,5 +19,5 @@ public class UserEntity {
     private String gender;
     private boolean state;
     private String password;
-
+    private String admin_id;
 }

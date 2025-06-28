@@ -1,5 +1,6 @@
 package com.uoj.HostelEase.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class AdminEntity {
     private String admin_id;
     @OneToOne
     @JoinColumn(name = "admin_id", referencedColumnName = "regNo")
+    @JsonManagedReference(value = "admin-user")
     private UserEntity user;
 
     @OneToMany(mappedBy = "admin")

@@ -19,6 +19,7 @@ public class SecurityEntity {
     private String security_id;
     @OneToOne
     @JoinColumn(name = "security_id", referencedColumnName = "regNo")
+    @JsonManagedReference(value = "warden-user")
     private UserEntity user;
 
     @OneToMany(mappedBy = "security")

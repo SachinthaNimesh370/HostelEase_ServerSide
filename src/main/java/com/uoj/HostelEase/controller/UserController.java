@@ -1,5 +1,6 @@
 package com.uoj.HostelEase.controller;
 
+import com.uoj.HostelEase.dto.UserApproveDTO;
 import com.uoj.HostelEase.dto.UserLoginRequestDTO;
 import com.uoj.HostelEase.dto.UserLoginResponceDTO;
 import com.uoj.HostelEase.dto.UserRegRequestDTO;
@@ -61,8 +62,8 @@ public class UserController {
 
     }
     @PostMapping("/userupdate")
-    public ResponseEntity<StandardResponce> userUpdate(@RequestBody UserRegRequestDTO userRegRequestDTO){
-        ServiceResponse massage = userService.userUpdate(userRegRequestDTO);
+    public ResponseEntity<StandardResponce> userUpdate(@RequestBody UserApproveDTO userApproveDTO){
+        ServiceResponse massage = userService.userUpdate(userApproveDTO);
         if(massage.isSuccess()){
             return  new ResponseEntity<StandardResponce>(
                     new StandardResponce(
@@ -152,6 +153,23 @@ public class UserController {
     @GetMapping("/getallstudent")
     public ResponseEntity<StandardResponce> getAllStudent(){
         ServiceResponse massage = userService.getAllStudent();
+        if(massage.isSuccess()){
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            200,"Ok",new UserLoginResponceDTO(
+                            massage.getObject(), LocalDateTime.now()),massage.getRole()),
+                    HttpStatus.OK);
+        }else {
+            return  new ResponseEntity<StandardResponce>(
+                    new StandardResponce(
+                            400,"Bad", new UserLoginResponceDTO(
+                            massage.getObject(),null),null),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping("/deleteuser")
+    public ResponseEntity<StandardResponce> deleteUser(@RequestBody UserRegRequestDTO userDTO){
+        ServiceResponse massage = userService.deleteUser(userDTO.getRegNo());
         if(massage.isSuccess()){
             return  new ResponseEntity<StandardResponce>(
                     new StandardResponce(

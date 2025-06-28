@@ -1,6 +1,7 @@
 package com.uoj.HostelEase.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class WardenEntity {
 
     @OneToOne
     @JoinColumn(name = "warden_id", referencedColumnName = "regNo")
+    @JsonManagedReference(value = "warden-user")
     private UserEntity user;
 
     @OneToMany(mappedBy = "warden")
